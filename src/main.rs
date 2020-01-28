@@ -19,7 +19,7 @@ fn main() {
         for e in parser {
             match e {
                 Ok(XmlEvent::StartElement { name, .. }) => {
-                    println!("{}+{}",name);
+                    println!("{}",name);
                 }
 
                 Err(e) => {
