@@ -3,6 +3,8 @@ extern crate xml;
 
 use std::env;
 
+use xml::reader::{EventReader, XmlEvent};
+
 fn main() {
     let args:Vec<String> = env::args().collect();
     let command_line = &args[1];
@@ -12,7 +14,20 @@ fn main() {
         let uri_template = "https://ja.wikipedia.org/w/api.php?format=xml&action=query&list=search&srsearch=";
         let uri = format!("{}{}", uri_template, command_line_serch);
         let response = get_request(&uri);
-        println!("{}", response);
+        let parser = EventReader::from_str(&response);
+        for e in parser {
+            match e {
+                Ok(XmlEvent::StartElement { name, .. }) => {
+                    println!("{}+{}", depth, name);
+                }
+
+                Err(e) => {
+                    println!("Error: {}", e);
+                    break;
+                }
+                _ => {}
+            }
+        }
     }else if command_line == "open"{
 
     }else{
