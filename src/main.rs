@@ -15,10 +15,11 @@ fn main() {
         let uri = format!("{}{}", uri_template, command_line_serch);
         let response = get_request(&uri);
         let parser = EventReader::from_str(&response);
+
         for e in parser {
             match e {
                 Ok(XmlEvent::StartElement { name, .. }) => {
-                    println!("{}+{}", depth, name);
+                    println!("{}+{}",name);
                 }
 
                 Err(e) => {
