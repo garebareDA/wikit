@@ -5,6 +5,8 @@ use std::env;
 
 use xml::reader::{EventReader, XmlEvent};
 
+use wikit::serch_parser;
+
 fn main() {
     let args:Vec<String> = env::args().collect();
     let command_line = &args[1];
@@ -18,8 +20,13 @@ fn main() {
 
         for e in parser {
             match e {
-                Ok(XmlEvent::StartElement { name, .. }) => {
-                    println!("{}",name);
+                Ok(XmlEvent::StartElement {name, attributes, ..}) => {
+                    if name.to_string() == "p"{
+                        let title = &attributes[1].value;
+                        let value = &attributes[5].value;
+                        let text = serch_parser::parser::serch_parse(value);
+
+                    }
                 }
 
                 Err(e) => {
