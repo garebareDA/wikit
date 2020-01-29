@@ -6,6 +6,7 @@ use std::env;
 use xml::reader::{EventReader, XmlEvent};
 
 use wikit::serch_parser::{parser, serch::Serch};
+use wikit::terminal::serch_view;
 
 fn main() {
     let args:Vec<String> = env::args().collect();
@@ -13,6 +14,10 @@ fn main() {
 
     if command_line == "serch" {
         let command_line_serch = &args[2];
+        if command_line_serch.len() < 1 {
+            return;
+        }
+
         let uri_template = "https://ja.wikipedia.org/w/api.php?format=xml&action=query&list=search&srsearch=";
         let uri = format!("{}{}", uri_template, command_line_serch);
         let response = get_request(&uri);
@@ -39,10 +44,12 @@ fn main() {
                 _ => {}
             }
         }
+
+        serch_view::views();
     }else if command_line == "open"{
 
     }else{
-
+        println!("<command> serch [word] or open [word]");
     }
 }
 
