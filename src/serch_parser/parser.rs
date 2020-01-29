@@ -34,6 +34,7 @@ pub fn serch_parse(text: &str) -> String {
                         break;
                     }
                 }
+
                 continue;
             }
         }
