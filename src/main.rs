@@ -45,7 +45,7 @@ fn main() {
             }
         }
 
-        serch_view::views();
+        serch_view::views(&serch_result);
     }else if command_line == "open"{
 
     }else{
