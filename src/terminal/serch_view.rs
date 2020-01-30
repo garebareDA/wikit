@@ -29,8 +29,5 @@ pub fn views(result:&Vec<serch::Serch>) {
 
             _ => {}
         }
-
-        draw::serch_draw(&mut stdout ,result);
-        stdout.flush().unwrap();
     }
 }
