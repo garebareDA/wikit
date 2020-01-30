@@ -47,6 +47,29 @@ fn main() {
 
         serch_view::views(&serch_result);
     }else if command_line == "open"{
+        let command_line_open = &args[2];
+        if command_line_open.len() < 1 {
+            return;
+        }
+
+        let uri_template = "http://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=";
+        let uri = format!("{}{}&rvprop=content", uri_template, command_line_open);
+        let response = get_request(&uri);
+        let parser = EventReader::from_str(&response);
+        for e in parser {
+            match e {
+                Ok(XmlEvent::Characters(chars)) => {
+                    println!("{:?}", chars);
+                }
+
+                Err(e) => {
+                    println!("Error: {}", e);
+                    break;
+                }
+
+                _ => {}
+            }
+        }
 
     }else{
         println!("<command> serch [word] or open [word]");
