@@ -13,8 +13,9 @@ pub fn views(result:&Vec<serch::Serch>) {
 
     write!(
         stdout,
-        "{}",
+        "{}{}",
         termion::clear::All,
+        termion::cursor::Hide
     )
     .unwrap();
     stdout.flush().unwrap();

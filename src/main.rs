@@ -7,6 +7,7 @@ use xml::reader::{EventReader, XmlEvent};
 
 use wikit::serch_parser::{parser, serch::Serch};
 use wikit::terminal::serch_view;
+use wikit::wiki_text_parser;
 
 fn main() {
     let args:Vec<String> = env::args().collect();
@@ -52,6 +53,7 @@ fn main() {
             return;
         }
 
+        let mut  wiki_text = String::new();
         let uri_template = "http://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=";
         let uri = format!("{}{}&rvprop=content", uri_template, command_line_open);
         let response = get_request(&uri);
@@ -59,7 +61,7 @@ fn main() {
         for e in parser {
             match e {
                 Ok(XmlEvent::Characters(chars)) => {
-                    println!("{:?}", chars);
+                    wiki_text = chars;
                 }
 
                 Err(e) => {
@@ -71,6 +73,7 @@ fn main() {
             }
         }
 
+        wiki_text_parser::parser::wiki_text(&wiki_text);
     }else{
         println!("<command> serch [word] or open [word]");
     }
