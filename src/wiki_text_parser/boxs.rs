@@ -22,44 +22,40 @@ pub fn box_view(text: &str) -> String {
 
         if one_char == '<'{
             let mut tag_name = String::new();
-            loop {
-                let tag = text.chars().nth(0).unwrap();
-                if tag == '>'{
-                    text.remove(0);
+            text.remove(0);
+
+            for i in text.as_str().chars(){
+                if i == '>'{
                     break;
                 }
 
-                tag_name = format!("{}{}", tag_name, tag);
-                text.remove(0);
+                tag_name = format!("{}{}", tag_name, i);
             }
-            tag_name.retain(|c| c != ' ');
 
-            if tag_name == "ref"{
-                loop {
-                    let is_tag = text.chars().nth(0).unwrap();
-                    let is_close = text.chars().nth(1).unwrap();
-                    if is_tag == '<' && is_close =='/'{
-                        loop {
-                            text.remove(0);
-                            if text.chars().nth(0).unwrap() == '>'{
-                                text.remove(0);
-                                break;
-                            }
-                        }
+            if tag_name.starts_with("ref") {
+                println!("\n");
+            }
+
+            if tag_name.starts_with("br") {
+                loop{
+                    let is_close = text.chars().nth(0).unwrap();
+                    if is_close == '>'{
+                        text.remove(0);
+                        println!("\n");
+                        break;
                     }
                     text.remove(0);
                 }
             }
 
-            if tag_name == "br/"{
-                println!("");
-            }
+            continue;
         }
 
         if one_char == '|'{
             if text.len() < 0 {
                 return text;
             }
+
             println!("{}", text_result);
             return text;
         }
