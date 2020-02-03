@@ -13,9 +13,8 @@ pub fn views(result:&Vec<serch::Serch>) {
 
     write!(
         stdout,
-        "{}{}",
+        "{}",
         termion::clear::All,
-        termion::cursor::Hide
     )
     .unwrap();
     stdout.flush().unwrap();
@@ -25,13 +24,6 @@ pub fn views(result:&Vec<serch::Serch>) {
     for evt in stdin.events() {
         match evt.unwrap(){
             Event::Key(Key::Ctrl('c')) => {
-                stdout.flush().unwrap();
-                write!(
-                    stdout,
-                    "{}",
-                    termion::cursor::Show
-                )
-                .unwrap();
                 return;
             }
 
@@ -47,13 +39,10 @@ pub fn view_wiki(wiki_text:&mut Vec<String>) {
     let stdin = stdin();
     let mut stdout = stdout();
 
-    println!("{:?}", wiki_text);
-
     write!(
         stdout,
-        "{}{}",
+        "{}",
         termion::clear::All,
-        termion::cursor::Hide
     )
     .unwrap();
 
@@ -63,13 +52,6 @@ pub fn view_wiki(wiki_text:&mut Vec<String>) {
     for evt in stdin.events() {
         match evt.unwrap(){
             Event::Key(Key::Ctrl('c')) => {
-                stdout.flush().unwrap();
-                write!(
-                    stdout,
-                    "{}",
-                    termion::cursor::Show
-                )
-                .unwrap();
                 return;
             }
 
