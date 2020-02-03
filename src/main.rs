@@ -73,7 +73,8 @@ fn main() {
             }
         }
 
-        wiki_text_parser::parser::wiki_text(&wiki_text);
+        let mut result = wiki_text_parser::parser::wiki_text(&wiki_text);
+        serch_view::view_wiki(&mut result);
     }else{
         println!("<command> serch [word] or open [word]");
     }
